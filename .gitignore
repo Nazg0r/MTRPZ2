@@ -1,1 +1,5 @@
 Markdown display/obj/Debug/
+.vs/
+[Dd]ebug/
+[Cc]ash/
+*.log
