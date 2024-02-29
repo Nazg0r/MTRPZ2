@@ -17,6 +17,7 @@ namespace ConsoleParams
 
             string path = args[0];
             string? destinationPath = null;
+            Convertor convertor = new();
 
             if (!File.Exists(path))
             {
@@ -30,7 +31,11 @@ namespace ConsoleParams
 
                 string text = FileProcessing.ReadFile(path);
 
-                FileProcessing.WriteFile(text, destinationPath);
+                string? paragrph = Utils.getMatch(text, @"(?<=\n\r\n)(.|\W[^(\n\r\n)])*");
+
+                string HTML = convertor.MarkdownToHTML(paragrph);
+
+                FileProcessing.WriteFile(HTML);
                 return;
             }
 
