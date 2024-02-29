@@ -1,4 +1,9 @@
-﻿namespace ConsoleParams
+﻿using Markdown_display;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace ConsoleParams
 {
     internal class Program
     {
@@ -11,7 +16,7 @@
             }
 
             string path = args[0];
-            string? destinationPath;
+            string? destinationPath = null;
 
             if (!File.Exists(path))
             {
@@ -19,17 +24,13 @@
                 return;
             }
 
-            if (args.Length == 1)
+            if (args.Length == 1 || args.Length == 3 && args[1] == "--out")
             {
-                Console.WriteLine(path);
-                return;
-            }
+                if (args.Length == 3) destinationPath = args[2];
 
-            if (args.Length == 3 && args[1] == "--out")
-            {
-                destinationPath = args[2];
+                string text = FileProcessing.ReadFile(path);
 
-                Console.WriteLine(destinationPath);
+                FileProcessing.WriteFile(text, destinationPath);
                 return;
             }
 
