@@ -11,13 +11,12 @@ namespace Markdown_display
     internal class Convertor
     {
         Patterns patterns = new();
-        string placeholder = "@:";
 
         internal string MarkdownToHTML(string paragraph)
         {
             List<string> preformattedText = TakePreformattedText(ref paragraph);
 
-            foreach (var relation in patterns.relations)
+            foreach (KeyValuePair<string, string> relation in patterns.relations)
             {
                 while (Regex.IsMatch(paragraph, relation.Key))
                 {
@@ -28,8 +27,9 @@ namespace Markdown_display
             }
 
             paragraph = ReturnPreformattedText(paragraph, preformattedText);
-            string what = patterns.paragraphTeg.Replace(" ", paragraph);
-            return what;
+            string result = patterns.paragraphTeg.Replace(" ", paragraph);
+
+            return result;
         }
 
         private List<string> TakePreformattedText(ref string text)
@@ -37,11 +37,11 @@ namespace Markdown_display
             List<string> preformattedText = new();
             int i = 0;
 
-            while (Regex.IsMatch(text, patterns.secondpattern))
+            while (Regex.IsMatch(text, patterns.preformattedPattern))
             {
-                string match = Regex.Match(text, patterns.secondpattern).Value;
-                preformattedText.Add(StringToHTML(match, patterns.secondpattern, false));
-                text = text.Replace(match, placeholder + i);
+                string match = Regex.Match(text, patterns.preformattedPattern).Value;
+                preformattedText.Add(StringToHTML(match, patterns.preformattedPattern, false));
+                text = text.Replace(match, patterns.placeholder + i);
                 i++;
             }
 
@@ -53,7 +53,8 @@ namespace Markdown_display
             int i = 0;
             foreach (string preformattedPart in preformattedText)
             {
-                text = text.Replace(placeholder + i, preformattedPart);
+                text = text.Replace(patterns.placeholder + i, preformattedPart);
+                i++;
             }
 
             return text;
@@ -61,11 +62,14 @@ namespace Markdown_display
 
         private string StringToHTML(string match, string pattern, bool checkMarkdoun)
         {
-            match = Regex.Match(match, patterns.patternsWithoutMarkup[pattern]).Value;
+            string simpleForm = Regex.Match(match, patterns.withoutMarkup[pattern]).Value;
 
-            if (checkMarkdoun && CheckMarckdown(match)) throw new Exception();
+            if (checkMarkdoun && CheckMarckdown(simpleForm))
+            {
+                Console.Error.WriteLine($"Error: invalid markdown. Convertion error on \"{simpleForm}\" ");
+            }
 
-            return patterns.relations[pattern].Replace(" ", match);
+            return patterns.relations[pattern].Replace(" ", simpleForm);
         }
 
         private bool CheckMarckdown(string text)

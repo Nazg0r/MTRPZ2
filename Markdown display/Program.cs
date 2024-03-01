@@ -11,13 +11,14 @@ namespace ConsoleParams
         {
             if (args.Length == 0)
             {
-                Console.Error.WriteLine("Missing argiments");
+                Console.Error.WriteLine("Missing arguments");
                 return;
             }
 
             string path = args[0];
             string? destinationPath = null;
             Convertor convertor = new();
+            Patterns patterns = new();
 
             if (!File.Exists(path))
             {
@@ -31,7 +32,7 @@ namespace ConsoleParams
 
                 string text = FileProcessing.ReadFile(path);
 
-                string? paragrph = Utils.getMatch(text, @"(?<=\n\r\n)(.|\W[^(\n\r\n)])*");
+                string? paragrph = Utils.getMatch(text, patterns.paragrphPattern);
 
                 string HTML = convertor.MarkdownToHTML(paragrph);
 
