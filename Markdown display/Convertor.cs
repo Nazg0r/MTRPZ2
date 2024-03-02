@@ -12,24 +12,42 @@ namespace Markdown_display
     {
         Patterns patterns = new();
 
+        internal string Start(string text)
+        {
+            StringBuilder sb = new();
+
+            TextHandler(text, patterns.paragrph, (m) =>
+            {
+                sb.Append(MarkdownToHTML(m) + "\n");
+            });
+
+            return sb.ToString();
+        }
+
         internal string MarkdownToHTML(string paragraph)
         {
             List<string> preformattedText = TakePreformattedText(ref paragraph);
-
-            foreach (KeyValuePair<string, string> relation in patterns.relations)
-            {
-                while (Regex.IsMatch(paragraph, relation.Key))
-                {
-                    string match = Regex.Match(paragraph, relation.Key).Value;
-                    string tagForm = StringToHTML(match, relation.Key, true);
-                    paragraph = paragraph.Replace(match, tagForm);
-                }
-            }
-
+            ExtraCheck(paragraph);
+            paragraph = DoConversion(paragraph);
             paragraph = ReturnPreformattedText(paragraph, preformattedText);
             string result = patterns.paragraphTeg.Replace(" ", paragraph);
 
             return result;
+        }
+
+        private string DoConversion(string text)
+        {
+            foreach (KeyValuePair<string, string> relation in patterns.relations)
+            {
+                while (Regex.IsMatch(text, relation.Key))
+                {
+                    string match = Regex.Match(text, relation.Key).Value;
+                    string tagForm = StringToHTML(match, relation.Key, true);
+                    text = text.Replace(match, tagForm);
+                }
+            }
+
+            return text;
         }
 
         private List<string> TakePreformattedText(ref string text)
@@ -37,10 +55,10 @@ namespace Markdown_display
             List<string> preformattedText = new();
             int i = 0;
 
-            while (Regex.IsMatch(text, patterns.preformattedPattern))
+            while (Regex.IsMatch(text, patterns.preformatted))
             {
-                string match = Regex.Match(text, patterns.preformattedPattern).Value;
-                preformattedText.Add(StringToHTML(match, patterns.preformattedPattern, false));
+                string match = Regex.Match(text, patterns.preformatted).Value;
+                preformattedText.Add(StringToHTML(match, patterns.preformatted, false));
                 text = text.Replace(match, patterns.placeholder + i);
                 i++;
             }
@@ -66,7 +84,7 @@ namespace Markdown_display
 
             if (checkMarkdoun && CheckMarckdown(simpleForm))
             {
-                Console.Error.WriteLine($"Error: invalid markdown. Convertion error on \"{simpleForm}\" ");
+                Console.Error.WriteLine($"Error: invalid markdown. Convertion error on \"{match}\" ");
             }
 
             return patterns.relations[pattern].Replace(" ", simpleForm);
@@ -74,13 +92,41 @@ namespace Markdown_display
 
         private bool CheckMarckdown(string text)
         {
-            foreach (var relation in patterns.relations)
+            foreach (string pattern in patterns.checklist)
             {
-                if (Regex.IsMatch(text, relation.Key)) return true;
+                if (Regex.IsMatch(text, pattern)) return true;
             }
 
             return false;
         }
 
+        private void ExtraCheck(string text)
+        {
+            foreach (string pattern in patterns.extraChecklist)
+            {
+                string workingTextPice = string.Copy(text);
+
+                TextHandler(workingTextPice, pattern, (m) =>
+                {
+                    if (!Regex.IsMatch(m, patterns.markupEnding))
+                    {
+                        string simpleForm = Regex.Match(m, patterns.simpleForm).Value;
+                        Console.Error.WriteLine($"Error: invalid markdown. Convertion error on \"{simpleForm}\" ");
+                    }
+                });
+            }
+        }
+
+        private void TextHandler(string text, string pattern, Action<string> handler)
+        {
+            while (Regex.IsMatch(text, pattern))
+            {
+                string match = Regex.Match(text, pattern).Value;
+                handler.Invoke(match);
+                int pointer = text.IndexOf(match) + match.Length;
+                text = text.Substring(pointer);
+
+            }
+        } 
     }
 }

@@ -32,9 +32,7 @@ namespace ConsoleParams
 
                 string text = FileProcessing.ReadFile(path);
 
-                string? paragrph = Utils.getMatch(text, patterns.paragrphPattern);
-
-                string HTML = convertor.MarkdownToHTML(paragrph);
+                string HTML = convertor.Start(text);
 
                 FileProcessing.WriteFile(HTML);
                 return;
