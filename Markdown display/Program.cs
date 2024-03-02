@@ -7,23 +7,22 @@ namespace ConsoleParams
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             if (args.Length == 0)
             {
                 Console.Error.WriteLine("Missing arguments");
-                return;
+                return 0;
             }
 
             string path = args[0];
             string? destinationPath = null;
             Convertor convertor = new();
-            Patterns patterns = new();
 
             if (!File.Exists(path))
             {
                 Console.Error.WriteLine("Invalid file path");
-                return;
+                return 0;
             }
 
             if (args.Length == 1 || args.Length == 3 && args[1] == "--out")
@@ -32,14 +31,22 @@ namespace ConsoleParams
 
                 string text = FileProcessing.ReadFile(path);
 
-                string HTML = convertor.Start(text);
+                try
+                {
+                    string HTML = convertor.Start(text);
 
-                FileProcessing.WriteFile(HTML);
-                return;
+                    FileProcessing.WriteFile(HTML, destinationPath);
+                    return 0;
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine($"Error: invalid markdown. {e.Message}");
+                    return 1;
+                }
             }
 
             Console.Error.WriteLine("Wrong number of parameters");
-            return;
+            return 0;
 
         }
     }

@@ -84,7 +84,7 @@ namespace Markdown_display
 
             if (checkMarkdoun && CheckMarckdown(simpleForm))
             {
-                Console.Error.WriteLine($"Error: invalid markdown. Convertion error on \"{match}\" ");
+                Console.Error.WriteLine($"Convertion error on \"{match}\" ");
             }
 
             return patterns.relations[pattern].Replace(" ", simpleForm);
@@ -111,7 +111,7 @@ namespace Markdown_display
                     if (!Regex.IsMatch(m, patterns.markupEnding))
                     {
                         string simpleForm = Regex.Match(m, patterns.simpleForm).Value;
-                        Console.Error.WriteLine($"Error: invalid markdown. Convertion error on \"{simpleForm}\" ");
+                        throw new($"Convertion error on \"{simpleForm}\" ");
                     }
                 });
             }
