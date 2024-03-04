@@ -33,3 +33,5 @@ or
 
 > [!WARNING]  
 > The program works correctly only on the Windows operating system.
+
+unknown entry
