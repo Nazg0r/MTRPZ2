@@ -33,3 +33,5 @@ or
 
 > [!WARNING]  
 > The program works correctly only on the Windows operating system.
+
+*[revert commit](https://github.com/Nazg0r/MTRPZ/commit/0bfe6898a6d49f5e5c5253e8484c72bd273c51ed)*
