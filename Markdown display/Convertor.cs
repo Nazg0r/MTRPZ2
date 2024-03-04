@@ -84,7 +84,7 @@ namespace Markdown_display
 
             if (checkMarkdoun && CheckMarckdown(simpleForm))
             {
-                Console.Error.WriteLine($"Convertion error on \"{match}\" ");
+                throw new($"Convertion error on \"{match}\" ");
             }
 
             return patterns.relations[pattern].Replace(" ", simpleForm);

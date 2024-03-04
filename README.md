@@ -6,14 +6,30 @@ To use the program, you need to clone this repository to your local machine:
 ```
 git clone https://github.com/Nazg0r/MTRPZ.git
 ```
-Run the provided build in the following directory using one of the commands:
+To compile and run program, you need to have the latest version of dotnet core, which can be downloaded at the following [link](https://dotnet.microsoft.com/en-us/download).
+
+Then, when you have the latest version of dotnet, in the root folder of the project, you can run the following command:
 ```
-".\bin\Debug\net8.0\Markdown display.exe" <Markdown path>
+dotnet run <Markdown path>
+```
 or
-".\bin\Debug\net8.0\Markdown display.exe" <Markdown path> --out <destination path>
+```
+dotnet run <Markdown path> --out <destination path>
 ```
 where
-- `".\bin\Debug\net8.0\Markdown display.exe"` - relative location of the application;
-- `<Markdown path>` - absolute path of the Markdown file;
+- `<Markdown path>` - path of the Markdown file;
 - `--out` option to create the final transformed HTML markup file;
-- `<destination path>` - absolute destination path of the result file;
+- `<destination path>` - destination path of the result file;
+  
+You also can run the provided build in the following directory using one of the commands:
+```
+& ".\Markdown display\bin\Debug\net8.0\Markdown display.exe" <Markdown path>
+```
+or
+```
+& ".\Markdown display\bin\Debug\net8.0\Markdown display.exe" <Markdown path> --out <destination path>
+```
+
+
+> [!WARNING]  
+> The program works correctly only on the Windows operating system.

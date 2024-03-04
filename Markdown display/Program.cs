@@ -12,7 +12,7 @@ namespace ConsoleParams
             if (args.Length == 0)
             {
                 Console.Error.WriteLine("Missing arguments");
-                return 0;
+                return 1;
             }
 
             string path = args[0];
@@ -22,7 +22,7 @@ namespace ConsoleParams
             if (!File.Exists(path))
             {
                 Console.Error.WriteLine("Invalid file path");
-                return 0;
+                return 1;
             }
 
             if (args.Length == 1 || args.Length == 3 && args[1] == "--out")
@@ -35,7 +35,7 @@ namespace ConsoleParams
                 {
                     string HTML = convertor.Start(text);
 
-                    FileProcessing.WriteFile(HTML, destinationPath);
+                    FileProcessing.WriteFile(HTML);
                     return 0;
                 }
                 catch (Exception e)
@@ -45,8 +45,8 @@ namespace ConsoleParams
                 }
             }
 
-            Console.Error.WriteLine("Wrong number of parameters");
-            return 0;
+            Console.Error.WriteLine("Wrong number of parameters or incorrect inputs");
+            return 1;
 
         }
     }
