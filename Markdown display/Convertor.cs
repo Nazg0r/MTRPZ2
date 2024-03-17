@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Markdown_display
 {
-    internal class Convertor
+    public class Convertor
     {
         Patterns patterns = new();
 
-        internal string Start(string text)
+        public string Start(string text)
         {
             StringBuilder sb = new();
 
@@ -84,7 +84,7 @@ namespace Markdown_display
 
             if (checkMarkdoun && CheckMarckdown(simpleForm))
             {
-                throw new($"Convertion error on \"{match}\" ");
+                throw new($"Convertion error on \"{match}\"");
             }
 
             return patterns.relations[pattern].Replace(" ", simpleForm);
@@ -111,7 +111,7 @@ namespace Markdown_display
                     if (!Regex.IsMatch(m, patterns.markupEnding))
                     {
                         string simpleForm = Regex.Match(m, patterns.simpleForm).Value;
-                        throw new($"Convertion error on \"{simpleForm}\" ");
+                        throw new($"Convertion error on \"{simpleForm}\"");
                     }
                 });
             }
