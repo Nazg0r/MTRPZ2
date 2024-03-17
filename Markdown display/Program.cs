@@ -1,4 +1,5 @@
 ﻿using Markdown_display;
+using Markdown_display.Pattern;
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,7 +18,7 @@ namespace ConsoleParams
 
             string path = args[0];
             string? destinationPath = null;
-            Convertor convertor = new();
+            Convertor convertor = new(new ANSIPatterns());
 
             if (!File.Exists(path))
             {
