@@ -5,7 +5,7 @@ using Markdown_display.Pattern;
 
 namespace HTMLConvertorUnitTests
 {
-    public class UnitTest1
+    public class HTMLConvertorTests
     {
         private string AddExtraLines(string text) => text + "\r\n\r\n";
 
@@ -64,7 +64,8 @@ namespace HTMLConvertorUnitTests
         public void DoConversionTest(string text, string expected)
         {
             //Arrange
-            Convertor convertor = new(new HTMLPatterns());
+            Patterns format = new HTMLPatterns();
+            Convertor convertor = new(format);
             text = AddExtraLines(text);
             //Act
             string result = convertor.Start(text);
@@ -96,7 +97,8 @@ namespace HTMLConvertorUnitTests
         public void ErrorDoConversionTest(string text, string expected)
         {
             //Arrange
-            Convertor convertor = new(new HTMLPatterns());
+            Patterns format = new HTMLPatterns();
+            Convertor convertor = new(format);
             text = AddExtraLines(text);
             //Act
             Exception exception = Assert.Throws<Exception>(() => _ = convertor.Start(text));

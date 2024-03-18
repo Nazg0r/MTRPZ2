@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HTMLConvertorUnitTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3f2114b3bd8ebfdd808d667bef618a15fb4646d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45cdbb83fa339191adc681a06ee6cc925e7e0784")]
 [assembly: System.Reflection.AssemblyProductAttribute("HTMLConvertorUnitTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HTMLConvertorUnitTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

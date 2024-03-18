@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 1\\Markdown display\\Markdown display.csproj": {}
+    "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 2\\MTRPZ2\\Markdown display\\Markdown display.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 1\\Markdown display\\Markdown display.csproj": {
+    "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 2\\MTRPZ2\\Markdown display\\Markdown display.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 1\\Markdown display\\Markdown display.csproj",
+        "projectUniqueName": "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 2\\MTRPZ2\\Markdown display\\Markdown display.csproj",
         "projectName": "Markdown display",
-        "projectPath": "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 1\\Markdown display\\Markdown display.csproj",
+        "projectPath": "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 2\\MTRPZ2\\Markdown display\\Markdown display.csproj",
         "packagesPath": "C:\\Users\\gorch\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 1\\Markdown display\\obj\\",
+        "outputPath": "C:\\Users\\gorch\\OneDrive\\Desktop\\lab 2\\MTRPZ2\\Markdown display\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
