@@ -1,6 +1,7 @@
 ﻿using Markdown_display;
 using Markdown_display.Pattern;
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -17,8 +18,30 @@ namespace ConsoleParams
             }
 
             string path = args[0];
-            string? destinationPath = null;
-            Convertor convertor = new(new ANSIPatterns());
+            string? destinationPath = Utilities.SetOutPath(args);
+            Patterns format = Utilities.SetFormat(args);
+
+            try
+            {
+                Utilities.CheckFormatFlag(args);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                return 1;
+            }
+
+            try 
+            {
+                Utilities.CheckOutPath(destinationPath!); 
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                return 1;
+            }
+
+            Convertor convertor = new(format);
 
             if (!File.Exists(path))
             {
@@ -26,17 +49,15 @@ namespace ConsoleParams
                 return 1;
             }
 
-            if (args.Length == 1 || args.Length == 3 && args[1] == "--out")
+            if (args.Length <= 4 && args.Length > 0)
             {
-                if (args.Length == 3) destinationPath = args[2];
-
                 string text = FileProcessing.ReadFile(path);
 
                 try
                 {
                     string HTML = convertor.Start(text);
 
-                    FileProcessing.WriteFile(HTML);
+                    FileProcessing.WriteFile(HTML, destinationPath);
                     return 0;
                 }
                 catch (Exception e)
@@ -49,6 +70,6 @@ namespace ConsoleParams
             Console.Error.WriteLine("Wrong number of parameters or incorrect inputs");
             return 1;
 
-        }
+            }
     }
 }
