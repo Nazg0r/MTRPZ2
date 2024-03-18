@@ -1,0 +1,28 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+name: Test
+
+on:
+  push:
+    branches: 
+    - master
+
+jobs:
+  test:
+
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        dirs: ['.\HTMLConvertorUnitTests\', '.\ANSIConvertorUnitTests\']
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Build
+      run: dotnet build '.\Markdown display\'
+    - name: Test
+      run: dotnet test ${{matrix.dirs}}
